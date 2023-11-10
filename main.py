@@ -2,14 +2,19 @@ import datetime as dt
 
 FORMAT='%d.%m.%Y %H:%M'
 data = {}
-
+#проверка на корректность данных
+def check_data(data_time):
+    data_time = dt.datetime.strptime(data_time, FORMAT)
+    return data_time if (data_time > dt.datetime.now() and data_time != None) else False
+        
 #добавляем событие и автоматически ставим отмеку о том, что событие не выполнено
 def add_data(data_time, new_events):
-    data_time = dt.datetime.strptime(data_time, FORMAT)
-    flag = False
-    data[data_time] = new_events, flag
-    return data
-    
+    if check_data(data_time):
+        flag = False
+        data[data_time] = new_events, flag
+        return data
+    else:
+        print("Некорректно введены данные")
 #просмотр всех запланированных событий    
 def viewing_data(data):
     for data_t in data:
@@ -33,12 +38,11 @@ def edit_data(data):#, new_events, flug):
         print('На эту дату у вас ничего не запланировано')
     return data
     
-print(add_data('25.03.2020 22:30', 'asd'))
-print(add_data('26.03.2020 22:30', 'asd'))
 
-#print(delete_data_events(data))
-#print(edit_data(data))
-#viewing_data(data)
+print(add_data('26.03.2024 22:30', 'asd'))
+
+'''
 def menu():
     print('Пожалуйста, выберете действие')
     print(f'Если вы хотите добавить новую запись, введите ')
+'''
